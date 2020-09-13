@@ -2,7 +2,7 @@ import json
 import re
 import csv
 
-with open ('/Users/shawnlevin/xray.json') as data:
+with open ('/Users/{directory}/xray.json') as data:
     data = json.load(data)
 
 scenes = data['page']['sections']['left']['widgets']['widgetList']

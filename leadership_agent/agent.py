@@ -40,7 +40,7 @@ def main() -> None:
     cfg = load_config()
 
     print("Fetching feeds...", flush=True)
-    feeds = get_all_feeds()
+    feeds = get_all_feeds(verbose=True)
 
     if args.status:
         _print_status(feeds)

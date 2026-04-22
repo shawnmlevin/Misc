@@ -12,7 +12,7 @@ class Episode(TypedDict):
 
 FEEDS = {
     "hof": "https://www.manager-tools.com/podcasts/important-topic-feeds/hall-fame-feed",
-    "exec": "https://www.manager-tools.com/executive-tools-podcasts",
+    "exec": "https://www.manager-tools.com/podcasts/important-topic-feeds/executive-tools-feed",
     "basics": "https://www.manager-tools.com/podcasts/basics-rss.xml",
 }
 
@@ -48,12 +48,15 @@ def fetch_feed(url: str) -> List[Episode]:
     return episodes
 
 
-def get_all_feeds() -> Dict[str, List[Episode]]:
+def get_all_feeds(verbose: bool = True) -> Dict[str, List[Episode]]:
     result = {}
     for key, url in FEEDS.items():
         try:
-            result[key] = fetch_feed(url)
+            episodes = fetch_feed(url)
+            result[key] = episodes
+            if verbose:
+                print(f"  {PHASE_LABELS[key]}: {len(episodes)} episodes fetched")
         except Exception as e:
-            print(f"Warning: could not fetch {key} feed ({url}): {e}")
+            print(f"  Warning: could not fetch {key} feed: {e}")
             result[key] = []
     return result

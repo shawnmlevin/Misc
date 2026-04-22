@@ -11,7 +11,7 @@ State is stored in state.json next to this file.
 import json
 import os
 from dataclasses import dataclass
-from typing import Optional
+from typing import Dict, List, Optional
 
 from feeds import Episode, PHASE_LABELS
 
@@ -44,7 +44,7 @@ def save_state(state: dict) -> None:
         json.dump(state, f, indent=2)
 
 
-def get_position(feeds: dict[str, list[Episode]], state: Optional[dict] = None) -> Optional[CurriculumPosition]:
+def get_position(feeds: Dict[str, List[Episode]], state: Optional[dict] = None) -> Optional[CurriculumPosition]:
     if state is None:
         state = load_state()
 
@@ -76,7 +76,7 @@ def get_position(feeds: dict[str, list[Episode]], state: Optional[dict] = None) 
     return None
 
 
-def advance(feeds: dict[str, list[Episode]]) -> None:
+def advance(feeds: Dict[str, List[Episode]]) -> None:
     state = load_state()
     phase_key = state.get("phase_key", "hof")
     episode_index = state.get("episode_index", 0)

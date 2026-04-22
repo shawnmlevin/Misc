@@ -1,5 +1,6 @@
 import smtplib
 from email.message import EmailMessage
+from typing import Optional
 
 from content import Brief
 from curriculum import CurriculumPosition
@@ -25,7 +26,7 @@ def build_subject(pos: CurriculumPosition) -> str:
 def build_body(
     pos: CurriculumPosition,
     brief: Brief,
-    tomorrow_title: str | None,
+    tomorrow_title: Optional[str],
 ) -> str:
     sep = "─" * 52
     takeaways = "\n".join(f"  {i+1}. {t}" for i, t in enumerate(brief.takeaways))
@@ -65,7 +66,7 @@ def send(
     to_email: str,
     pos: CurriculumPosition,
     brief: Brief,
-    tomorrow_title: str | None = None,
+    tomorrow_title: Optional[str] = None,
 ) -> None:
     msg = EmailMessage()
     msg["Subject"] = build_subject(pos)

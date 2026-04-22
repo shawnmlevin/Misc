@@ -1,6 +1,6 @@
 import feedparser
 from datetime import datetime, timezone
-from typing import TypedDict
+from typing import Dict, List, TypedDict
 
 
 class Episode(TypedDict):
@@ -29,7 +29,7 @@ def _entry_date(entry) -> datetime:
     return datetime(1970, 1, 1, tzinfo=timezone.utc)
 
 
-def fetch_feed(url: str) -> list[Episode]:
+def fetch_feed(url: str) -> List[Episode]:
     parsed = feedparser.parse(url)
     entries_with_dates = [
         (_entry_date(e), e) for e in parsed.entries
@@ -48,7 +48,7 @@ def fetch_feed(url: str) -> list[Episode]:
     return episodes
 
 
-def get_all_feeds() -> dict[str, list[Episode]]:
+def get_all_feeds() -> Dict[str, List[Episode]]:
     result = {}
     for key, url in FEEDS.items():
         try:

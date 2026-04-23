@@ -1,5 +1,0 @@
-.env
-state.json
-agent.log
-__pycache__/
-*.pyc
